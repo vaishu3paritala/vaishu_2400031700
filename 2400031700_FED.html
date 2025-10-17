@@ -1,0 +1,52 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link, Outlet } from "react-router-dom";
+
+function Home() {
+  return <h2>🏠 Home Page</h2>;
+}
+
+function Profile() {
+  return <h3>👤 Profile Page</h3>;
+}
+
+function Settings() {
+  return <h3>⚙ Settings Page</h3>;
+}
+
+function Dashboard() {
+  return (
+    <div>
+      <h2>📊 Dashboard</h2>
+
+      <nav style={{ marginBottom: "10px" }}>
+        <Link to="profile" style={{ marginRight: "10px" }}>Profile</Link>
+        <Link to="settings">Settings</Link>
+      </nav>
+
+      <hr />
+      {/* Child routes render here */}
+      <Outlet />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <nav style={{ marginBottom: "20px" }}>
+        <Link to="/" style={{ marginRight: "10px" }}>Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
